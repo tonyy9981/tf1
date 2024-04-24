@@ -1,0 +1,15 @@
+#!name=TestFlight
+#!desc=Nhiều tài khoản cùng tồn tại và thử nghiệm tham gia tự động
+
+[General]
+skip-proxy = %APPEND% iosapps.itunes.apple.com
+
+[Script]
+TestFlight_Cài đặt giả mạo = type=http-request,requires-body=1,max-size=0,pattern=^https:\/\/testflight\.apple\.com\/v\d\/accounts\/settings\/.*\/apps\/\d+,script-path=https://raw.githubusercontent.com/finish475/tf1/main/tf1.js
+TestFlight_Giả mạo ứng dụng = type=http-request,requires-body=1,max-size=0,pattern=^https:\/\/testflight\.apple\.com\/v\d\/accounts\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\/apps\/\d+,script-path=https://raw.githubusercontent.com/finish475/tf1/main/tf1.js
+TestFlight_giả mạo trạng thái = type=http-request,requires-body=1,max-size=0,pattern=^https:\/\/testflight\.apple\.com\/v\d\/apps\/\d+\/\d+\/install\/status$,script-path=https://raw.githubusercontent.com/finish475/tf1/main/tf1.js
+TestFlight_Ứng dụng cùng tồn tại = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/testflight\.apple\.com\/v\d\/accounts\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\/apps$,script-path=https://raw.githubusercontent.com/finish475/tf1/main/tf1.js
+TestFlight_xếp hàng tự động = type=http-response,requires-body=1,max-size=0,pattern=^https:\/\/testflight\.apple\.com\/v\d\/accounts\/\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\/ru\/([a-zA-Z0-9]{8})$,script-path=https://raw.githubusercontent.com/finish475/tf1/main/tf1.js
+
+[MITM] 
+hostname = %APPEND% testflight.apple.com
